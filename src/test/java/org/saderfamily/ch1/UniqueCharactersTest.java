@@ -10,14 +10,26 @@ public class UniqueCharactersTest {
         assertTrue(new UniqueCharacters().isUnique(s));
     }
 
+    @Test(dataProvider = "uniqueStrings")
+    public void all_unique_characters_no_storage(String s, String empty) {
+        assertTrue(new UniqueCharacters().isUniqueNoExtraStorage(s));
+    }
+
     @Test(dataProvider = "duplicateCharacters")
     public void duplicated_characters(String s, String empty) {
         assertFalse(new UniqueCharacters().isUnique(s));
     }
 
+    @Test(dataProvider = "duplicateCharacters")
+    public void duplicated_characters_no_storage(String s, String empty) {
+        assertFalse(new UniqueCharacters().isUniqueNoExtraStorage(s));
+    }
+
     @DataProvider(name = "uniqueStrings")
     public Object[][] uniqueStrings() {
         return new Object[][]{
+                {null, ""},
+                {"", ""},
                 {"abcde", ""},
                 {"Ja net", ""},
                 {"Keith", ""}
