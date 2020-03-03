@@ -19,7 +19,7 @@ public class UniqueCharactersTest {
     public Object[][] uniqueStrings() {
         return new Object[][]{
                 {"abcde", ""},
-                {"Janet", ""},
+                {"Ja net", ""},
                 {"Keith", ""}
         };
     }
@@ -27,8 +27,7 @@ public class UniqueCharactersTest {
     @DataProvider(name = "duplicateCharacters")
     public Object[][] duplicateCharacters() {
         return new Object[][]{
-                {"xyzzy", ""},
-                {"AAbbcc", ""},
+                {"xyZzY", ""},
                 {"  ", ""},
                 {"The quick brown fox jumped over the Lazy Dog", ""}
         };
