@@ -1,6 +1,7 @@
 package org.saderfamily.ch2;
 
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class NodeTest {
 
     @BeforeTest
     public void setup() {
-        Node duplicateSLL = new Node(1);
+        duplicateSLL = new Node(1);
 
         duplicateSLL.append(2);
         duplicateSLL.append(1);
@@ -66,4 +67,40 @@ public class NodeTest {
         assertEquals(numNodes, 4);
     }
 
+    @DataProvider
+    Object [][] kthNode() {
+        return new Object[][] {
+                {1, 4},
+                {2, 2},
+                {3, 1},
+                {4, 3},
+                {5, 1},
+                {6, 1},
+                {7, 1},
+                {8, 1},
+                {9, 2}
+        };
+    }
+    @Test(dataProvider = "kthNode")
+    // The hints in the book ask "What if you know the size and can you do this recursively?
+    // If I knew the size, I'd assume an array implementation and make my life a lot easier. In the default
+    // Node impl, there's no size - I suppose I could add that data item but then there might be threading issues.
+    // OTOH, I went straight to the dual pointer implementation as per the last suggestion.
+    public void find_kth_to_last_element(int kth, int expected) {
+        int k = kth;
+        int current = 0;
+        // see to head by default
+        Node kthLast = duplicateSLL;
+        Node currentNode = duplicateSLL;
+
+        while (currentNode.next != null) {
+            if(current >= k) {
+                kthLast = kthLast.next;
+            }
+            current++;
+            currentNode = currentNode.next;
+        }
+
+        assertEquals(kthLast.number, expected);
+    }
 }
