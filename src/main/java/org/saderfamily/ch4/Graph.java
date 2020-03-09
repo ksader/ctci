@@ -1,7 +1,5 @@
 package org.saderfamily.ch4;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public class Graph {
     public Node[] nodes;
