@@ -41,4 +41,22 @@ public class GraphTest {
     public void noPathExists() {
         assertNull(directedGraph.pathExists(a, z));
     }
+
+    @Test
+    public void createBSTFromSortedArray() {
+        int[] sortedArray = new int[]{1, 2, 3, 5, 8, 13, 21, 34};
+
+        Node tree =  Node.createBST(sortedArray, 0, sortedArray.length - 1);
+
+        assertEquals(tree.number, 5);
+        assertEquals(tree.left.left.number, 1);
+        assertEquals(tree.left.right.number, 3);
+
+        assertEquals(tree.right.number, 13);
+        assertEquals(tree.right.left.number, 8);
+        assertEquals(tree.right.left.left, null);
+        assertEquals(tree.right.left.right, null);
+        assertEquals(tree.right.right.left, null);
+        assertEquals(tree.right.right.right.number, 34);
+    }
 }
