@@ -11,11 +11,11 @@ public class Graph {
      * @return Node found in graph
      */
     public Node pathExists(Node src, Node dest) {
-        if(src.name.equals(dest.name)) {
+        if(src.getName().equals(dest.getName())) {
             return src;
         }
 
-        for (Node child: src.children) {
+        for (Node child: src.getChildren()) {
             Node result = pathExists(child, dest);
             if(result != null) {
                 return result;

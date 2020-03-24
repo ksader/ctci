@@ -1,6 +1,10 @@
 package org.saderfamily.ch4;
 
 import org.testng.annotations.*;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import static org.testng.Assert.*;
 
 public class GraphTest {
@@ -23,16 +27,16 @@ public class GraphTest {
         s = new Node("s");
         z = new Node("z");
 
-        s.children = new Node[]{a, z};
-        a.children = new Node[]{n, m};
-        n.children = new Node[]{i};
-        m.children = new Node[]{e};
+        s.setChildren(new Node[]{a, z});
+        a.setChildren(new Node[]{n, m});
+        n.setChildren(new Node[]{i});
+        m.setChildren(new Node[]{e});
 
         directedGraph = new Graph();
         directedGraph.nodes = new Node[]{s};
     }
 
-    @Test
+    @Test(description = "Exercise 4.1")
     public void pathExists() {
         assertNotNull(directedGraph.pathExists(s, e));
     }
@@ -42,21 +46,28 @@ public class GraphTest {
         assertNull(directedGraph.pathExists(a, z));
     }
 
-    @Test
+    @Test(description = "Exercise 4.2")
     public void createBSTFromSortedArray() {
         int[] sortedArray = new int[]{1, 2, 3, 5, 8, 13, 21, 34};
 
         Node tree =  Node.createBST(sortedArray, 0, sortedArray.length - 1);
 
-        assertEquals(tree.number, 5);
-        assertEquals(tree.left.left.number, 1);
-        assertEquals(tree.left.right.number, 3);
+        assertEquals(tree.getNumber(), 5);
+        assertEquals(tree.getLeft().getLeft().getNumber(), 1);
+        assertEquals(tree.getLeft().getRight().getNumber(), 3);
 
-        assertEquals(tree.right.number, 13);
-        assertEquals(tree.right.left.number, 8);
-        assertEquals(tree.right.left.left, null);
-        assertEquals(tree.right.left.right, null);
-        assertEquals(tree.right.right.left, null);
-        assertEquals(tree.right.right.right.number, 34);
+        assertEquals(tree.getRight().getNumber(), 13);
+        assertEquals(tree.getRight().getLeft().getNumber(), 8);
+        assertEquals(tree.getRight().getLeft().getLeft(), null);
+        assertEquals(tree.getRight().getLeft().getRight(), null);
+        assertEquals(tree.getRight().getRight().getLeft(), null);
+        assertEquals(tree.getRight().getRight().getRight().getNumber(), 34);
+    }
+
+    @Test(description = "Exercise 4.3")
+    public void list_depths() {
+        List<Node> depthNodes = new LinkedList<>();
+
+
     }
 }
