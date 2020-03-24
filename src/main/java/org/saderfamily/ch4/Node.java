@@ -19,9 +19,6 @@ public class Node {
         this.setNumber(number);
     }
 
-    private Node left;
-    private Node right;
-
     public static Node createBST(int[] sorted, int startIndex, int endIndex) {
         if(null == sorted || sorted.length == 0 || endIndex < startIndex) {
             return null;
