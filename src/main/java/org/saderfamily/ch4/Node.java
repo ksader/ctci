@@ -1,5 +1,7 @@
 package org.saderfamily.ch4;
 
+import java.util.*;
+
 public class Node {
     private String name;
     private Node[] children;
@@ -91,6 +93,62 @@ public class Node {
     private void initStorage() {
         if (this.children.length == 0) {
             this.children = new Node[2];
+        }
+    }
+
+    public int nodeDepth(Node tree, int value) {
+        if(null == tree) {
+            return 0;
+        }
+
+        if(tree.getNumber() == value) {
+            return 0;
+        }
+
+        if(value < tree.getNumber()) {
+            return 1 + nodeDepth(tree.getLeft(), value);
+        }
+
+        if(value > tree.getNumber()) {
+            return 1 + nodeDepth(tree.getRight(), value);
+        }
+
+        return -1;
+    }
+
+    public List<List<Node>> listLevels(Node root) {
+        Queue<Node> visitees = new LinkedList<>();
+        Set<Node> marked = new HashSet<>();
+        marked.add(root);
+        visitees.add(root);
+
+        List<List<Node>> levelLists = new ArrayList<>();
+        while(!visitees.isEmpty()) {
+            Node visiting = visitees.remove();
+
+            // Visit...
+            assignNodeLevel(root, levelLists, visiting);
+
+            // Traverse
+            for(Node n : visiting.getChildren()) {
+                if(null != n && !marked.contains(n)) {
+                    marked.add(n);
+                    visitees.add(n);
+                }
+            }
+        }
+
+        return levelLists;
+    }
+
+    void assignNodeLevel(Node root, List<List<Node>> levelLists, Node visiting) {
+        int nodeDepth = nodeDepth(root, visiting.getNumber());
+        if(levelLists.size() < nodeDepth + 1) {
+            List<Node> level = new ArrayList<>();
+            level.add(visiting);
+            levelLists.add(nodeDepth, level);
+        } else {
+            levelLists.get(nodeDepth).add(visiting);
         }
     }
 }

@@ -2,7 +2,6 @@ package org.saderfamily.ch4;
 
 import org.testng.annotations.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.testng.Assert.*;
@@ -66,8 +65,19 @@ public class GraphTest {
 
     @Test(description = "Exercise 4.3")
     public void list_depths() {
-        List<Node> depthNodes = new LinkedList<>();
+        int[] sortedArray = new int[]{1, 2, 3, 5, 8, 13, 21, 34};
+        Node tree =  Node.createBST(sortedArray, 0, sortedArray.length - 1);
+        assertEquals(tree.nodeDepth(tree, 21), 2);
+        assertEquals(tree.nodeDepth(tree, 5), 0);
+        // algorithm doesn't handled 'not found'
+//        assertEquals(tree.nodeDepth(tree, 45), -1);
 
+        List<List<Node>> levelLists = tree.listLevels(tree);
+        assertEquals(levelLists.size(), 4);
+        assertEquals(levelLists.get(0).get(0).getNumber(), 5);
+        assertEquals(levelLists.get(3).get(0).getNumber(), 34);
+        assertEquals(levelLists.get(2).get(1).getNumber(), 3);
+        assertEquals(levelLists.get(2).get(2).getNumber(), 8);
 
     }
 }
