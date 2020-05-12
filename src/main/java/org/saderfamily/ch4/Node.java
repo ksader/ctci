@@ -97,11 +97,7 @@ public class Node {
     }
 
     public int nodeDepth(Node tree, int value) {
-        if(null == tree) {
-            return 0;
-        }
-
-        if(tree.getNumber() == value) {
+        if(null == tree || tree.getNumber() == value) {
             return 0;
         }
 
@@ -109,11 +105,8 @@ public class Node {
             return 1 + nodeDepth(tree.getLeft(), value);
         }
 
-        if(value > tree.getNumber()) {
-            return 1 + nodeDepth(tree.getRight(), value);
-        }
+        return 1 + nodeDepth(tree.getRight(), value);
 
-        return -1;
     }
 
     public List<List<Node>> listLevels(Node root) {
@@ -125,10 +118,8 @@ public class Node {
         List<List<Node>> levelLists = new ArrayList<>();
         while(!visitees.isEmpty()) {
             Node visiting = visitees.remove();
-
             // Visit...
             assignNodeLevel(root, levelLists, visiting);
-
             // Traverse
             for(Node n : visiting.getChildren()) {
                 if(null != n && !marked.contains(n)) {
