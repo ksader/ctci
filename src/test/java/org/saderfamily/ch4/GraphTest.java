@@ -64,7 +64,7 @@ public class GraphTest {
     }
 
     @Test(description = "Exercise 4.3")
-    public void list_depths() {
+    public void listDepths() {
         int[] sortedArray = new int[]{1, 2, 3, 5, 8, 13, 21, 34};
         Node tree =  Node.createBST(sortedArray, 0, sortedArray.length - 1);
         assertEquals(tree.nodeDepth(tree, 21), 2);
@@ -78,6 +78,30 @@ public class GraphTest {
         assertEquals(levelLists.get(3).get(0).getNumber(), 34);
         assertEquals(levelLists.get(2).get(1).getNumber(), 3);
         assertEquals(levelLists.get(2).get(2).getNumber(), 8);
+    }
 
+    @Test(description = "Excercise 4.4")
+    public void checkBalanced() {
+        int[] sortedArray = new int[]{1, 2, 3, 5, 8, 13, 21, 34};
+        Node tree =  Node.createBST(sortedArray, 0, sortedArray.length - 1);
+
+        List<List<Node>> leftLevels = tree.listLevels(tree.getLeft());
+        List<List<Node>> rightLevels = tree.listLevels(tree.getRight());
+
+        assertTrue(Math.abs(leftLevels.size() - rightLevels.size()) <= 1);
+
+        Node unbalancedTree = new Node(12);
+        unbalancedTree.setLeft(new Node(15));
+        unbalancedTree.setRight(new Node(10));
+        unbalancedTree.getLeft().setLeft(new Node(27));
+        unbalancedTree.getLeft().setRight(new Node(-5));
+        unbalancedTree.getLeft().getLeft().setLeft(new Node(32));
+        unbalancedTree.getLeft().getLeft().setRight(new Node(32));
+        unbalancedTree.getLeft().getRight().setLeft(new Node(7));
+        unbalancedTree.getLeft().getRight().setRight(new Node(7));
+
+        leftLevels = tree.listLevels(unbalancedTree.getLeft());
+        rightLevels = tree.listLevels(unbalancedTree.getRight());
+        assertTrue(Math.abs(leftLevels.size() - rightLevels.size()) >= 1);
     }
 }

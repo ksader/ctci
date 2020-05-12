@@ -96,6 +96,7 @@ public class Node {
         }
     }
 
+    // Finds depth of node given its value
     public int nodeDepth(Node tree, int value) {
         if(null == tree || tree.getNumber() == value) {
             return 0;
@@ -134,12 +135,10 @@ public class Node {
 
     void assignNodeLevel(Node root, List<List<Node>> levelLists, Node visiting) {
         int nodeDepth = nodeDepth(root, visiting.getNumber());
-        if(levelLists.size() < nodeDepth + 1) {
-            List<Node> level = new ArrayList<>();
-            level.add(visiting);
-            levelLists.add(nodeDepth, level);
-        } else {
-            levelLists.get(nodeDepth).add(visiting);
+        while(levelLists.size() < nodeDepth + 1) {
+            levelLists.add(new ArrayList<>());
         }
+        levelLists.get(nodeDepth).add(visiting);
     }
+
 }
